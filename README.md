@@ -40,18 +40,25 @@ Lựa chọn điền các thông tin như **app_name**, **email to register** & 
 <p align="center">
   <img 
     src="https://github.com/tuanvu9981/google_doc_flutter/blob/master/illustration_readme/android.png"
-    width="70%"
-    width="70%"
+    width="60%"
+    width="60%"
   >
 </p>
-- Tên package thì lấy ở manifest.xml của thư mục android flutter 
-- Mã sha-1 thì sinh ra bằng cách 
-```
-~/google_doc_flutter$ cd android
-~/google_doc_flutter/android$ ./gradlew signingReport
-```
 
-7. Lưu ý điều chỉnh sdkVersion lên 21 (thay vì 19 như default set up)
+7. Lưu ý
+  - Điều chỉnh sdkVersion lên 21 (thay vì 19 như default set up)
+  - Tên package thì lấy ở manifest.xml của thư mục android flutter 
+  - Mã sha-1 thì sinh ra bằng cách 
+  ```
+  ~/google_doc_flutter$ cd android
+  ~/google_doc_flutter/android$ ./gradlew signingReport
+  ```
 
+8. Khi khởi chạy ứng dụng vẫn có thể phát sinh lỗi chưa cấp quyền --> Vào trong Google Cloud console, và cho phép (ENABLE) ứng dụng **People API**
+
+9. Với ứng dụng web: Sẽ không chạy nếu cổng khác cổng 3000 (cài đặt ở trong Google Cloud console). Nên là phải sử dụng câu lệnh để chỉ định (specify) cổng cho ứng dụng.
+  ```
+  ~/google_doc_flutter$ flutter run -d chrome --web-port=3000
+  ``` 
 
 ## Setting up with Google Cloud OAuth Credentials

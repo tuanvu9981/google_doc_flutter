@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_doc_flutter/screens/login_screen.dart';
 
 void main() {
-  runApp(const GgDocsApp());
+  runApp(
+    const ProviderScope(child: GgDocsApp()),
+  );
 }
 
 class GgDocsApp extends StatelessWidget {
@@ -14,6 +18,7 @@ class GgDocsApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      home: const LoginScreen(),
     );
   }
 }
