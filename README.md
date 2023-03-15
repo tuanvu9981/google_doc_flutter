@@ -14,7 +14,7 @@ Lựa chọn mũi tên drop-down của project gần đây nhất để chọn t
 2. Chọn **"New Project"**, điền tên project & chọn **Location** (địa điểm) là **"No organization"** (Không có tổ chức nào)
 <p align="center">
   <img 
-    src="https://github.com/tuanvu9981/google_doc_flutter/blob/master/illustration_readme/create_new.png"
+    src="https://github.com/tuanvu9981/google_doc_flutter/blob/master/illustration_readme/create-new.png"
     width="100%"
   >
 </p>
@@ -40,7 +40,8 @@ Lựa chọn điền các thông tin như **app_name**, **email to register** & 
 <p align="center">
   <img 
     src="https://github.com/tuanvu9981/google_doc_flutter/blob/master/illustration_readme/android.png"
-    width="100%"
+    width="70%"
+    width="70%"
   >
 </p>
 - Tên package thì lấy ở manifest.xml của thư mục android flutter 
@@ -51,5 +52,6 @@ Lựa chọn điền các thông tin như **app_name**, **email to register** & 
 ```
 
 7. Lưu ý điều chỉnh sdkVersion lên 21 (thay vì 19 như default set up)
+
 
 ## Setting up with Google Cloud OAuth Credentials
