@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_doc_flutter/color.dart';
 import 'package:google_doc_flutter/repository/auth_repository.dart';
 import 'package:google_doc_flutter/screens/home_screen.dart';
+import 'package:routemaster/routemaster.dart';
 
 class LoginScreen extends ConsumerWidget {
   // stateless widget, but be able to listen to changes
@@ -10,14 +11,16 @@ class LoginScreen extends ConsumerWidget {
 
   void signInWithGoogle(WidgetRef ref, BuildContext context) async {
     final sMessenger = ScaffoldMessenger.of(context);
-    final navigator = Navigator.of(context);
+    // final navigator = Navigator.of(context);
+    final navigator = Routemaster.of(context);
     final errorModel =
         await ref.read(authRepositoryProvider).signInWithGoogle();
     if (errorModel.error == null) {
       ref.read(userProvider.notifier).update((state) => errorModel.data);
-      navigator.push(
-        MaterialPageRoute(builder: ((context) => const HomeScreen())),
-      );
+      // navigator.push(
+      //   MaterialPageRoute(builder: ((context) => const HomeScreen())),
+      // );
+      navigator.replace('/');
     } else {
       sMessenger.showSnackBar(
         SnackBar(

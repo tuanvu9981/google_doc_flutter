@@ -94,4 +94,9 @@ class AuthRepository {
     }
     return errorModel;
   }
+
+  Future<void> signOut() async {
+    await _googleSignIn.signOut();
+    await _localStorageRepository.setToken('');
+  }
 }
