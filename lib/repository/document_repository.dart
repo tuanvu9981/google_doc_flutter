@@ -42,4 +42,30 @@ class DocumentRepository {
     }
     return errorModel;
   }
+
+  Future<ErrorModel> getDocuments(String token) async {
+    var errorModel = ErrorModel(error: 'Unknown', data: null);
+    try {
+      var res = await _client.get(
+        Uri.parse('$host/doc/me'),
+        headers: {
+          "Content-type": "application/json",
+          "Accept": "application/json",
+          'x-auth-token': token,
+        },
+      );
+      if (res.statusCode == 200) {
+        List<Map<String, dynamic>?> mapData = jsonDecode(res.body)['documents'];
+        List<DocumentModel?> documents = mapData
+            .map(
+              (e) => DocumentModel.fromJson(e!),
+            )
+            .toList();
+        errorModel = ErrorModel(error: null, data: documents);
+      }
+    } catch (e) {
+      errorModel = ErrorModel(error: e.toString(), data: null);
+    }
+    return errorModel;
+  }
 }

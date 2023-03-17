@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_doc_flutter/color.dart';
+import 'package:google_doc_flutter/common/widgets/loader.dart';
+import 'package:google_doc_flutter/models/document.model.dart';
 import 'package:google_doc_flutter/repository/auth_repository.dart';
 import 'package:google_doc_flutter/repository/document_repository.dart';
 import 'package:routemaster/routemaster.dart';
+
+import '../models/error.model.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -29,6 +33,10 @@ class HomeScreen extends ConsumerWidget {
     }
   }
 
+  void navigateToDocument(BuildContext context, String documentId) {
+    Routemaster.of(context).push('/document/$documentId');
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
@@ -44,10 +52,53 @@ class HomeScreen extends ConsumerWidget {
           ),
         ],
       ),
-      body: Center(
-        child: Container(
-          child: Text(ref.read(userProvider)!.email!),
-        ),
+      body: FutureBuilder<ErrorModel>(
+        future: ref
+            .watch(documentRepositoryProvider)
+            .getDocuments(ref.watch(userProvider)!.token!),
+        builder: (BuildContext context, AsyncSnapshot<ErrorModel> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Loader();
+          }
+          return Center(
+            child: Column(
+              children: [
+                const Text(
+                  'My Document List',
+                  style: TextStyle(fontSize: 20.0, color: kBlackColor),
+                ),
+                ListView.builder(
+                  itemCount: snapshot.data!.data.length,
+                  itemBuilder: ((context, index) {
+                    DocumentModel doc = snapshot.data!.data[index];
+                    return Center(
+                      child: InkWell(
+                        onTap: () => navigateToDocument(context, doc.id!),
+                        child: Container(
+                          margin: const EdgeInsets.all(12.5),
+                          decoration: BoxDecoration(
+                            border: Border.all(width: 0.5),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          height: 50,
+                          child: Card(
+                            child: Center(
+                              child: Text(
+                                doc.title!,
+                                style: const TextStyle(fontSize: 17.0),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
