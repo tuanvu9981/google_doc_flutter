@@ -59,7 +59,7 @@ class AuthRepository {
           final newUser = UserModel.fromJson(mapData);
           newUser.token = jsonDecode(res.body)['token'];
           errorModel = ErrorModel(error: null, data: newUser);
-          _localStorageRepository.setToken(newUser.token!);
+          await _localStorageRepository.setToken(newUser.token!);
         }
       }
     } catch (e) {
@@ -86,7 +86,7 @@ class AuthRepository {
           final newUser = UserModel.fromJson(mapData);
           newUser.token = token;
           errorModel = ErrorModel(error: null, data: newUser);
-          _localStorageRepository.setToken(newUser.token!);
+          await _localStorageRepository.setToken(newUser.token!);
         }
       }
     } catch (e) {

@@ -1,25 +1,24 @@
 class DocumentModel {
   String? uid;
-  DateTime? createAt;
+  DateTime? createdAt;
   String? title;
   String? id;
   List? content;
 
-  DocumentModel({this.uid, this.createAt, this.title, this.content, this.id});
+  DocumentModel({this.uid, this.createdAt, this.title, this.content, this.id});
 
   DocumentModel.fromJson(Map<String, dynamic> json) {
     uid = json['uid'];
-    createAt = json['createAt'];
     title = json['title'];
     id = json['_id'];
-    createAt = DateTime.fromMillisecondsSinceEpoch(json['createdAt']);
+    createdAt = DateTime.fromMillisecondsSinceEpoch(json['createdAt'] as int);
     content = List.from(json['content']);
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['uid'] = uid;
-    data['createAt'] = createAt!.millisecondsSinceEpoch;
+    data['createdAt'] = createdAt!.millisecondsSinceEpoch;
     data['title'] = title;
     data['id'] = id;
     data['content'] = content;

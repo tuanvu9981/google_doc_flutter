@@ -41,14 +41,22 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: kWhiteColor,
+        elevation: 0,
         actions: [
-          IconButton(
-            onPressed: () => createDocument(context, ref),
-            icon: const Icon(Icons.add, color: kBlackColor, size: 35.0),
+          Padding(
+            padding: const EdgeInsets.only(right: 15.0),
+            child: IconButton(
+              onPressed: () => createDocument(context, ref),
+              icon: const Icon(Icons.add, color: kBlackColor, size: 30.0),
+            ),
           ),
-          IconButton(
-            onPressed: () => signOut(ref),
-            icon: const Icon(Icons.logout, color: kRedColor, size: 35.0),
+          Padding(
+            padding: const EdgeInsets.only(right: 15.0),
+            child: IconButton(
+              onPressed: () => signOut(ref),
+              icon: const Icon(Icons.logout, color: kRedColor, size: 30.0),
+            ),
           ),
         ],
       ),
@@ -61,41 +69,30 @@ class HomeScreen extends ConsumerWidget {
             return const Loader();
           }
           return Center(
-            child: Column(
-              children: [
-                const Text(
-                  'My Document List',
-                  style: TextStyle(fontSize: 20.0, color: kBlackColor),
-                ),
-                ListView.builder(
-                  itemCount: snapshot.data!.data.length,
-                  itemBuilder: ((context, index) {
-                    DocumentModel doc = snapshot.data!.data[index];
-                    return Center(
-                      child: InkWell(
-                        onTap: () => navigateToDocument(context, doc.id!),
-                        child: Container(
-                          margin: const EdgeInsets.all(12.5),
-                          decoration: BoxDecoration(
-                            border: Border.all(width: 0.5),
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          height: 50,
-                          child: Card(
-                            child: Center(
-                              child: Text(
-                                doc.title!,
-                                style: const TextStyle(fontSize: 17.0),
-                              ),
-                            ),
-                          ),
+            child: ListView.builder(
+              itemCount: snapshot.data!.data.length,
+              itemBuilder: ((context, index) {
+                DocumentModel doc = snapshot.data!.data[index];
+                return InkWell(
+                  onTap: () => navigateToDocument(context, doc.id!),
+                  child: Container(
+                    margin: const EdgeInsets.all(12.5),
+                    decoration: BoxDecoration(
+                      border: Border.all(width: 0.5),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    height: 50,
+                    child: Card(
+                      child: Center(
+                        child: Text(
+                          doc.title!,
+                          style: const TextStyle(fontSize: 17.0),
                         ),
                       ),
-                    );
-                  }),
-                ),
-              ],
+                    ),
+                  ),
+                );
+              }),
             ),
           );
         },

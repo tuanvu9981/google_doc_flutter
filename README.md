@@ -61,4 +61,5 @@ Lựa chọn điền các thông tin như **app_name**, **email to register** & 
   ~/google_doc_flutter$ flutter run -d chrome --web-port=3000
   ``` 
 
-## Setting up with Google Cloud OAuth Credentials
+## Attention
+1. Đặt **ListView** bên trong **Column**, **Column** bên trong **Center** là rất nguy hiểm, có thể gây ra crash 
