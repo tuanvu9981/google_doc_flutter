@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_quill/flutter_quill.dart' as quill;
+import 'package:flutter_quill/flutter_quill.dart' hide Text;
+// import 'package:flutter_quill_extensions/lfutter_quill_extensions.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_doc_flutter/color.dart';
 import 'package:google_doc_flutter/models/error.model.dart';
@@ -16,7 +17,7 @@ class DocumentScreen extends ConsumerStatefulWidget {
 
 class DocumentScreenState extends ConsumerState<DocumentScreen> {
   var titleController = TextEditingController();
-  // final _quillController = quill.QuillController.basic();
+  final _quillController = QuillController.basic();
   ErrorModel? errorModel;
 
   @override
@@ -110,7 +111,9 @@ class DocumentScreenState extends ConsumerState<DocumentScreen> {
       ),
       body: Column(
         children: [
-          // quill.QuillToolbar.basic(controller: _quillController),
+          QuillToolbar.basic(
+            controller: _quillController,
+          ),
           const SizedBox(height: 10.0),
           Center(
             child: Container(
@@ -120,17 +123,17 @@ class DocumentScreenState extends ConsumerState<DocumentScreen> {
                 child: Card(
                   color: kWhiteColor,
                   elevation: 5,
-                  // child: Padding(
-                  //   padding: const EdgeInsets.all(12.0),
-                  //   child: quill.QuillEditor.basic(
-                  //     controller: _quillController,
-                  //     readOnly: false, // true, view only mode
-                  //   ),
-                  // ),
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
-                    child: Text("Some thing"),
+                    child: QuillEditor.basic(
+                      controller: _quillController,
+                      readOnly: false, // true, view only mode
+                    ),
                   ),
+                  // child: Padding(
+                  //   padding: const EdgeInsets.all(12.0),
+                  //   child: Text("Some thing"),
+                  // ),
                 ),
               ),
             ),
