@@ -72,13 +72,13 @@ class AuthRepository {
     var errorModel = ErrorModel();
     try {
       final token = await _localStorageRepository.getToken();
-      if (token == null) {
+      if (token != null) {
         var res = await _client.get(
           Uri.parse('$host/'),
           headers: {
             "Content-type": "application/json",
             "Accept": "application/json",
-            'x-auth-token': token!,
+            'x-auth-token': token,
           },
         );
         if (res.statusCode == 200) {
